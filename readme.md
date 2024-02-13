@@ -1,49 +1,14 @@
-# Learn Auth
+# Изменения 
 
-## Login 
-### request
-```GRAPHQL
-mutation login{
-   login( request:{
-     email: "admin@example.com"
-     password: "Qwert!2345"
-     role: ADMINISTRATOR
-   }  
-   )
-}
-```
+Внесены следующие изменения в программу:
 
-### response
-```GRAPHQL
-{
-  "data": {
-    "login": "Status: 200 (OK); Body: \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBleGFtcGxlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluaXN0cmF0b3IiLCJleHAiOjE3MDc3NjkwMTIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjcyMjQiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo3MjI0In0.RDBNikK62aXJ23Eyy0nEen2fBYCe2n1VJmOXZYBlLt4\""
-  }
-}
-```
+1. **Токен идентификации пользователя:**
+   - В токен идентификации пользователя (в классе `TokenService`) были добавлены дополнительные данные, такие как ID пользователя и другие метаданные. Это позволяет более подробно описать пользователя в токене, что может быть полезно для GraphQL API.
 
-## Registration
-### request
-```GRAPHQL
-mutation register{
-  register(request: {
-    email:"admin2@example.com"
-    password:"Qwert!2345"
-    role: ADMINISTRATOR
-  })
-}
-```
-### response
-```GRAPHQL
-{
-  "data": {
-    "register": "Status: 200 (OK); Body: \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbjJAZXhhbXBsZS5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzA3NzcwMDg2LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MjI0IiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzIyNCJ9.AyXt50OEKUark-yZPPcRIu8BCD2DTq1exXVsgvEI_ZA\""
-  }
-}
-```
+2. **Обработка ошибок и результатов в сервисе аутентификации:**
+   - В методе `Login` класса `AuthService` были внесены изменения для использования пользовательских исключений (`UserNotFoundException` и `InvalidCredentialsException`). Это облегчает обработку идентификации в GraphQL-запросах и предоставляет более информативные ошибки.
 
-Get запросы сделать не просто необходимо заголовок с токеном передавать HttpClient
-Результат в Postman с полученным токеном из GraphQl
+3. **Интерфейс ITokenService:**
+   - В интерфейсе `ITokenService` была обновлена сигнатура метода `GenerateToken`, чтобы включить ID пользователя и другие метаданные в токен. Это позволяет интерфейсу лучше соответствовать реализации.
 
-![](./images/result.png "RESULT")
-
+Эти изменения улучшают функциональность аутентификации и предоставляют дополнительные данные в токене для использования в GraphQL API. 
